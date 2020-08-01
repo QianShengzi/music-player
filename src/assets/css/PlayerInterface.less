@@ -1,0 +1,313 @@
+.player {
+    position: relative;
+
+    .popup {
+        max-height: 300px;
+        background-color: rgba(255, 255, 255, .4);
+    }
+
+    .list {
+        padding: 4px 12px;
+        font-size: 14px;
+        border: 1px solid #f8f8f8;
+        box-sizing: border-box;
+        background-color: #fff;
+        color: #333;
+        padding-top: 10px;
+
+        .index {
+            line-height: 20px;
+            margin-right: 8px;
+        }
+
+        .name {
+            width: 70%;
+            word-break: break-all;
+            line-height: 20px;
+        }
+
+        .artistsname {
+            word-break: break-all;
+            line-height: 20px;
+            margin-right: 6px;
+        }
+
+        .collect {
+
+            .icon {
+                width: 20px;
+                height: 20px;
+                fill: #ccc;
+            }
+
+            .active {
+                fill: #f32621;
+            }
+        }
+    }
+
+    .listActive {
+        color: #f32621;
+        border-left: 3px solid #f32621;
+    }
+
+    // background-color: #fcc6c5;
+    .song-art {
+        color: #fff;
+        text-align: center;
+
+        .goback {
+            width: 20px;
+            height: 30px;
+            margin-left: 10px;
+            height: 20px;
+        }
+
+        .icon {
+            width: 100%;
+            height: 100%;
+            padding-top: 10px;
+        }
+
+        .name {
+            margin: auto;
+            font-size: 18px;
+            padding-top: 16px;
+            margin-bottom: 10px;
+            width: 76%;
+            padding-top: 0;
+            height: 30px;
+            margin-bottom: 0;
+            // background-color: red;
+        }
+
+        .artist {
+            font-size: 14px;
+            padding-top: 0;
+            height: 30px;
+        }
+    }
+
+    .van-notice-bar__content {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .bg-img {
+        height: 667px;
+        position: fixed;
+        z-index: -999;
+    }
+
+    // .player-center {
+    //     position: fixed;
+    //     top: 40%;
+    //     left: 50%;
+    //     transform: translate(-50%, -50%);
+    // }
+
+    .circle {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        background-color: #253028;
+        border-radius: 50%;
+        margin: 40px auto;
+
+        .inside-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 276px;
+            height: 276px;
+            background: url(../images/no-resource.jpg);
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+    }
+
+    // 旋转
+    .circle-roll {
+        animation: circle 20s linear infinite;
+    }
+
+    .stop-circle-roll {
+        animation-play-state: paused;
+    }
+
+    .lyric {
+        position: relative;
+        width: 90%;
+        height: 380px;
+        margin: auto;
+        text-align: center;
+
+        .lrc-content {
+            position: absolute;
+            width: 100%;
+            font-size: 16px;
+            color: #fff;
+            top: 190px;
+            transition: top .3s;
+        }
+
+        .lrc-content.clear-transition {
+            transition: none;
+        }
+
+        .lrc {
+            // height: 25px;
+            line-height: 25px;
+        }
+
+        .activeLrc .van-notice-bar__content {
+            font-size: 20px;
+            color: yellow;
+            transition: all .5s;
+        }
+
+        .lrc-van-bar {
+            margin: 0;
+            padding: 0;
+            height: 25px;
+        }
+    }
+
+    .van-hairline--top-bottom {
+        visibility: hidden;
+        padding: 0 160px;
+        // margin-bottom: 20px;
+    }
+
+    .van-tabs--line .van-tabs__wrap {
+        // height: 30px;
+        // visibility: hidden;
+    }
+
+    .van-tabs__line {
+        width: 10px !important;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #f54c49;
+    }
+
+    .progress-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 540px;
+    }
+
+    .bottom {
+        position: relative;
+        height: 22px;
+        line-height: 22px;
+        color: #fff;
+        margin-top: 20px;
+
+        .bar {
+            position: relative;
+            margin: auto;
+            width: 70%;
+            height: 100%;
+        }
+
+        .times {
+            position: absolute;
+            top: 0;
+        }
+
+        .start-time {
+            left: 10px;
+        }
+
+        .stop-time {
+            right: 10px;
+        }
+
+        .my-van-slider {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    .control {
+        width: calc(~"100%-40px");
+        height: 52px;
+        margin: 0 20px;
+
+        span {
+            display: inline-block;
+            height: 100%;
+            width: calc(~"100%/3");
+        }
+
+        /deep/ .icon {
+            width: 60px;
+            display: block;
+            margin: auto;
+            height: 100%;
+            fill: #f54c49 !important;
+        }
+    }
+
+    .tool {
+        position: absolute;
+        bottom: -40px;
+        width: 248px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        .tool-box {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            margin-right: 20px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .volume {
+            position: absolute;
+            left: 30px;
+            width: 140px;
+            // height: 20px;
+            padding-top: 11px;
+            height: 10px;
+            z-index: 111110;
+        }
+
+        .volume-van-slider {
+            position: absolute;
+            left: 0;
+            width: 140px;
+        }
+
+        .icon {
+            width: 100%;
+            height: 24px;
+            fill: #fff;
+        }
+
+        .active {
+            fill: #f32621;
+        }
+    }
+
+}
+
+@keyframes circle {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,69 @@
+.main {
+    .top {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #f54c49;
+        color: #fff;
+        z-index: 111;
+
+        .van-tabs--line .van-tabs__wrap {
+            margin-left: 70px;
+            margin-right: 70px;
+        }
+
+        .van-tab {
+            font-size: 14px;
+            color: #f1f1f1;
+        }
+
+        .van-tabs__line {
+            display: none;
+        }
+
+        .van-tab--active {
+            font-size: 17px;
+            color: #fff;
+        }
+
+        .content {
+            background-color: #fff;
+        }
+    }
+
+    .top-hidden {
+        top: 1000px !important;
+    }
+
+    .hidden-music-control {
+        bottom: -1000px !important;
+    }
+
+    .mask {
+        position: fixed;
+        right: 0;
+        bottom: 20px;
+        width: calc(~'100% - 66px');
+        height: 44px;
+        background-color: #f54c49;
+        opacity: 0;
+        z-index: 9999;
+    }
+
+    .my-music-control {
+        position: fixed;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        margin: 0;
+
+        .aplayer-controller .aplayer-time .aplayer-icon:hover .aplayer-fill {
+            fill: #f54c49;
+        }
+    }
+
+    .aplayer-controller .aplayer-time .aplayer-icon .aplayer-fill {
+        fill: #f54c49;
+    }
+}

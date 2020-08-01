@@ -1,0 +1,120 @@
+.music-hall {
+    margin-top: 94px;
+    margin-bottom: 60px;
+
+    .van-search {
+        position: fixed;
+        top: 42px;
+        left: 0;
+        width: 100%;
+        z-index: 111;
+    }
+
+    .search {
+        margin-bottom: 100px;
+    }
+
+    .van-tab__pane {
+        padding-top: 50px;
+    }
+
+    .van-search__content--round {
+        background-color: #eee;
+    }
+
+    .van-search__action {
+        color: #f54c49;
+        border-radius: 6px;
+    }
+
+    .van-icon-search {
+        color: #f54c49;
+    }
+
+    /deep/ .van-tabs__wrap {
+        position: fixed;
+        width: 100%;
+        margin: 0;
+        z-index: 111;
+    }
+
+    /deep/ .van-tabs__line {
+        width: 82px !important;
+    }
+
+    .page {
+        width: 60%;
+        margin: auto;
+        margin-bottom: 30px;
+
+        .van-pagination__item--disabled {
+            color: #f54c49;
+        }
+
+        .van-pagination__item--active {
+            color: #fff !important;
+            background-color: #f54c49;
+        }
+
+        .van-pagination__item {
+            height: 30px;
+            color: #f54c49;
+        }
+
+    }
+
+    .songs {
+
+        .single {
+            padding: 0px 10px;
+        }
+
+        .vocal {
+            position: relative;
+            background-color: #fafafa;
+            margin-bottom: 4px;
+            // height: 80px;
+        }
+
+        .images {
+            width: 80px;
+            height: 80px;
+            background-color: #fbb0ae;
+            margin: 4px;
+            margin-right: 6px;
+        }
+
+        .vocal-content {
+            left: 90px;
+            font-size: 16px;
+            border-bottom: 1px solid #ccc;
+            height: 87px;
+            width: calc(~"100% - 120px");
+
+            .song-name {
+                margin-top: 20px;
+                // margin-bottom: 10px;
+            }
+
+            .van-notice-bar {
+                padding: 0;
+                height: 24px;
+                width: 230px;
+            }
+        }
+
+        .collected {
+            display: block;
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            width: 22px;
+            fill: #ccc;
+            transform: translateY(-50%);
+        }
+    }
+
+    .active {
+        fill: #f22621;
+    }
+}

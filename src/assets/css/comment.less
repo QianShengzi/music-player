@@ -1,0 +1,70 @@
+.comment {
+    margin-top: 68px;
+    margin-bottom: 70px;
+    padding: 10px;
+
+    .hot-comment {
+        padding: 2px 4px;
+        font-size: 14px;
+        color: #f54c49;
+        padding-left: 8px;
+        border-left: 2px solid #f54c49;
+        margin-bottom: 6px;
+    }
+
+    .icon {
+        position: fixed;
+        right: 10px;
+        top: 50px;
+    }
+
+    .content {
+        padding: 10px;
+        margin-bottom: 4px;
+        // border: 1px solid #f44c49;
+        border-bottom: 1px solid #fccccb;
+        background-color: #f8f8f8;
+
+        .pic {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        .username,
+        .time {
+            margin-left: 10px;
+            height: 100%;
+            line-height: 30px;
+        }
+
+        .time {
+            color: #999;
+        }
+
+        .text {
+            // margin-left: 40px;
+            margin-top: 10px;
+            text-indent: 2em;
+            font-size: 14px;
+            word-wrap: break-word;
+
+            text-align: justify;
+
+            text-justify: distribute-all-lines; // 这行必加bai，兼容ie浏览器
+        }
+    }
+
+    .beReplied {
+        margin-left: 40px;
+        margin-top: 10px;
+        padding: 6px;
+        background-color: #fff;
+
+        .text {
+            font-size: 12px;
+        }
+    }
+}

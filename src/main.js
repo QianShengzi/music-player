@@ -14,7 +14,7 @@ require('vue-video-player/src/custom-theme.css')
 import 'vant/lib/index.css';
 import 'lib-flexible/flexible'
 import "font-awesome/css/font-awesome.min.css"
-import { Button, NavBar, Form, Field, Search, Tabs, Tab, Pagination, Icon, NoticeBar, Toast, Lazyload, PullRefresh, Popup, Slider, Dialog, Empty } from 'vant';
+import { Button, NavBar, Form, Field, Search, Tabs, Tab, Pagination, Icon, NoticeBar, Toast, Lazyload, PullRefresh, Popup, Slider, Dialog, Empty, Swipe, SwipeItem } from 'vant';
 
 Vue.use(Button)
   .use(NavBar)
@@ -33,6 +33,8 @@ Vue.use(Button)
   .use(Popup)
   .use(Dialog)
   .use(Empty)
+  .use(SwipeItem)
+  .use(Swipe)
 
 //注册axios
 Vue.use(VueAxios, axios);

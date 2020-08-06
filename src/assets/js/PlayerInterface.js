@@ -1,12 +1,14 @@
 import { createNamespacedHelpers } from "vuex";
 import { state } from "../../store/menuStore/state";
 const { mapState, mapMutations } = createNamespacedHelpers("menuModule");
+import { myColor } from "../js/color-thief";
 export default {
     computed: {
         ...mapState([
             "_aplayer",
             "currentTime",
             "duration",
+            "_showHall",
             "durationSec",
             "timeChange",
             "progressBarFlag",
@@ -26,6 +28,8 @@ export default {
     },
     data() {
         return {
+            // 背景图
+            bgPic: '',
             active: "",
             // 自定义进度条的值
             progressBarValue: 0,
@@ -66,16 +70,20 @@ export default {
             // 歌曲改变 重新处理歌词
             let lrc = this.myList[e].lrc;
             this.disposeLyric(lrc);
+            this.getColor()
         },
     },
     mounted() {
         // 同步列表选中状态
         this.indexForSong = this._aplayer.currentMusic.id - 1;
+        this.getColor()
     },
     created() {
         // 同步音量状态
         this.customVolume = this._volume * 100;
         console.log(this.customVolume);
+        // 设置背景图
+        this.bgPic = this._aplayer.currentMusic.cover
         let lrc = this._aplayer.currentMusic.lrc;
         this.disposeLyric(lrc);
     },
@@ -331,6 +339,7 @@ export default {
         },
         // 拖动进度条 改变歌曲播放时间
         changeTime() {
+            console.log('-------------------------------');
             this.setPlayAll(false);
             // 转换为秒数
             let value = (this.progressBarValue * this.durationSec) / 100;
@@ -374,6 +383,7 @@ export default {
                 this.$toast("列表没有歌曲，快去添加歌曲吧");
                 return;
             }
+            this.getColor();
             this.isCollected = false;
             // 加载提示
             this.$toast.loading({
@@ -397,6 +407,7 @@ export default {
                 this.$toast("列表没有歌曲，快去添加歌曲吧");
                 return;
             }
+            this.getColor();
             this.isCollected = false;
 
             // 加载提示
@@ -466,24 +477,28 @@ export default {
 
             // toggle*2 保持当前播放 或者暂停状态
             setTimeout(() => {
+                // 如果没切换回圆圈图片页面  根据歌词的滑动控制歌曲播放进度
                 console.log(this.active);
                 if (this.active) {
                     console.log(this.lrc);
                     console.log(this.moveLrcIndex);
                     // 设置播放时间 标识  拖动结束 根据对应歌词设置播放时间
                     this.changeChangeTime({ time: this.lrc[this.moveLrcIndex][0], flag: true });
+                    // 清除拖动时的歌词高亮显示
+                    this.moveLrcIndex = -1;
                     this._aplayer.toggle();
                 }
-                // 清除拖动时的歌词高亮显示
-                this.moveLrcIndex = -1;
-            }, 0);
+            }, 50);
+
             setTimeout(() => {
                 if (this.active) {
                     this._aplayer.toggle();
                 }
-            }, 100);
-            // 恢复歌词随歌曲播放滚动
-            this.flag = true;
+                // 清除拖动时的歌词高亮显示
+                this.moveLrcIndex = -1;
+                // 恢复歌词随歌曲播放滚动
+                this.flag = true;
+            }, 150);
         },
         // 显示当前歌单列表
         showList() {
@@ -626,7 +641,17 @@ export default {
             // console.log(lrcArr);
             // 二维数组
             this.lrc = songLrc;
+            if (songLrc.length == 0) {
+                this.lrc = [[0.0, "暂无滚动歌词", 0]];
+            }
         },
+        // 根据图片获取主色
+        getColor() {
+            let color = myColor(this.bgPic, this.$refs.picMask)
+            console.log(color);
+            // console.log(this.$refs.picMask.style);
+            // this.$refs.picMask.style.backgroundColor = '#' + 666; 
+        }
     },
     // created() {
     //   console.log(this.currentTime);

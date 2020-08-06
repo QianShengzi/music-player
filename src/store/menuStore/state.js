@@ -85,6 +85,55 @@ export const state = {
           picurl: "http://p2.music.126.net/2pF-tKT79yQLWfOnm49-hA==/109951164496579083.jpg",
           songId: "1404511131",
           url: "http://music.163.com/song/media/outer/url?id=1404511131"
+        },
+        {
+          artistsname: "Vicetone",
+          collect: false,
+          name: "Walk Thru Fire",
+          picurl: "http://p2.music.126.net/SZFvPTbtIWaO2Dz1ytOeAw==/109951163433090567.jpg",
+          songId: "1297498908",
+          url: "http://music.163.com/song/media/outer/url?id=1297498908"
+        },
+        {
+          artistsname: "en",
+          collect: false,
+          name: "嚣张",
+          picurl: "http://p1.music.126.net/NhkuFBphLFaSmYMeW1-frQ==/109951164271814514.jpg",
+          songId: "1382596189",
+          url: "http://music.163.com/song/media/outer/url?id=1382596189"
+        },
+        {
+          artistsname: "王巨星",
+          collect: false,
+          name: "还是分开",
+          picurl: "http://p1.music.126.net/GW0Zyx95jg2HiWBLO-IAHw==/109951164938630685.jpg",
+          songId: "1443143188",
+          url: "http://music.163.com/song/media/outer/url?id=1443143188"
+        },
+        {
+          artistsname: "一支榴莲",
+          collect: false,
+          name: "海底",
+          picurl: "http://p2.music.126.net/swcW0FE-__ihfjnJqU22Qg==/109951164696345792.jpg",
+          songId: "1426649237",
+          url: "http://music.163.com/song/media/outer/url?id=1426649237"
+        },
+        {
+          artistsname: "凯瑟喵",
+          collect: false,
+          name: "撒野",
+          picurl: "http://p1.music.126.net/TKYYGZTSPhJ4STGX5mzahQ==/109951164854563088.jpg",
+          songId: "483937795",
+          url: "http://music.163.com/song/media/outer/url?id=483937795"
+
+        },
+        {
+          artistsname: "郭顶",
+          collect: false,
+          name: "水星记",
+          picurl: "http://p2.music.126.net/wSMfGvFzOAYRU_yVIfquAA==/2946691248081599.jpg",
+          songId: "441491828",
+          url: "http://music.163.com/song/media/outer/url?id=441491828"
         }
       ]
     },

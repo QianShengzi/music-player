@@ -13,6 +13,12 @@
         @search="searchSongs"
         @input="saveSearchValue"
       />
+      <!-- 轮播图 -->
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item v-for="banner in bannerData" :key="banner.targetId">
+          <img class="auto-img" v-lazy="banner.picUrl" alt />
+        </van-swipe-item>
+      </van-swipe>
       <!-- 搜索歌曲列表 -->
       <div class="songs search" v-show="_searchSongs.length!=0">
         <!-- 显示每一首歌 -->
@@ -69,7 +75,7 @@
             total-items	总记录数	number | string	0
             items-per-page	每页记录数	number | string	10
         show-page-size	显示的页码个数  number | string-->
-        <div class="page">
+        <!-- <div class="page">
           <van-pagination
             @change="changePage"
             v-model="searchCurrentPage"
@@ -77,10 +83,18 @@
             :items-per-page="perPage"
             show-page-size="3"
           />
-        </div>
+        </div>-->
+        <sorter
+          :nowadaypage="searchCurrentPage"
+          :totalItems="_searchTotalItems"
+          :perPage="perPage"
+          @change-page="changePage($event)"
+        ></sorter>
       </div>
       <!-- 榜单列表 -->
       <van-tabs
+        animated
+        swipeable
         v-show="_searchSongs.length==0"
         class="list-item"
         v-model="listActive"
@@ -152,7 +166,7 @@
             total-items	总记录数	number | string	0
             items-per-page	每页记录数	number | string	10
             show-page-size	显示的页码个数  number | string-->
-            <div class="page">
+            <!-- <div class="page">
               <van-pagination
                 @change="changePage"
                 v-model="currentPage"
@@ -160,7 +174,13 @@
                 :items-per-page="perPage"
                 show-page-size="3"
               />
-            </div>
+            </div>-->
+            <sorter
+              :nowadaypage="nowadaypage"
+              :totalItems="totalItems"
+              :perPage="perPage"
+              @change-page="changePage($event)"
+            ></sorter>
           </van-pull-refresh>
         </van-tab>
       </van-tabs>

@@ -1,42 +1,44 @@
 <template>
   <div class="discover">
-    <ul v-if="!isShow">
-      <li class="item" v-for="item in mv" :key="item.id" @click="enterPage(item)">
-        <div class="img">
-          <img class="auto-img" v-lazy="item.cover" alt />
-          <div class="online">播放量: {{item.playCount}}万</div>
-        </div>
-        <div class="content">
-          <div class="label">
-            <span class="mv">MV</span>
-            <span class="mvname">{{item.name}}</span>
+    <van-pull-refresh v-model="isLoading" success-text="刷新成功" @refresh="onRefresh">
+      <ul v-if="!isShow">
+        <li class="item" v-for="item in mv" :key="item.id" @click="enterPage(item)">
+          <div class="img">
+            <img class="auto-img" v-lazy="item.cover" alt />
+            <div class="online">播放量: {{item.playCount}}万</div>
           </div>
-          <div class="artistname-box">
-            歌手 :
-            <span class="artistname" v-for="art in item.artists" :key="art.id">{{art.name}}</span>
+          <div class="content">
+            <div class="label">
+              <span class="mv">MV</span>
+              <span class="mvname">{{item.name}}</span>
+            </div>
+            <div class="artistname-box">
+              歌手 :
+              <span class="artistname" v-for="art in item.artists" :key="art.id">{{art.name}}</span>
+            </div>
           </div>
-        </div>
-        <!-- 遮罩 -->
-        <div class="video-mask">
-          <svg
-            t="1596252245789"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="2355"
-            width="81"
-            height="81"
-          >
-            <path
-              d="M849.5 962l-675 0c-66.284 0-112.5-46.216-112.5-112.5l0-675c0-66.284 46.216-112.5 112.5-112.5l675 0c66.284 0 112.5 46.216 112.5 112.5l0 675c0 66.284-46.216 112.5-112.5 112.5zM99.5 212l0 75 150 0-72.858-182.135c-46.619 13.532-77.142 53.522-77.142 107.135zM249.5 99.5l75.001 187.5 112.481 0-74.982-187.5-112.5 0zM436.982 99.5l75.018 187.5 112.5 0-75-187.5-112.519 0zM624.5 99.5l75 187.5 112.5 0-75-187.5-112.5 0zM924.5 212c0-66.284-46.216-112.5-112.5-112.5l75.001 187.5 37.499 0 0-75zM924.5 324.5l-824.999 0 0 487.5c0 66.284 46.216 112.5 112.5 112.5l600 0c66.284 0 112.5-46.216 112.5-112.5l0-487.5zM362 437l337.5 187.5-337.5 187.5 0-374.999z"
-              p-id="2356"
-              fill="#fff"
-            />
-          </svg>
-        </div>
-      </li>
-    </ul>
+          <!-- 遮罩 -->
+          <div class="video-mask">
+            <svg
+              t="1596252245789"
+              class="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="2355"
+              width="81"
+              height="81"
+            >
+              <path
+                d="M849.5 962l-675 0c-66.284 0-112.5-46.216-112.5-112.5l0-675c0-66.284 46.216-112.5 112.5-112.5l675 0c66.284 0 112.5 46.216 112.5 112.5l0 675c0 66.284-46.216 112.5-112.5 112.5zM99.5 212l0 75 150 0-72.858-182.135c-46.619 13.532-77.142 53.522-77.142 107.135zM249.5 99.5l75.001 187.5 112.481 0-74.982-187.5-112.5 0zM436.982 99.5l75.018 187.5 112.5 0-75-187.5-112.519 0zM624.5 99.5l75 187.5 112.5 0-75-187.5-112.5 0zM924.5 212c0-66.284-46.216-112.5-112.5-112.5l75.001 187.5 37.499 0 0-75zM924.5 324.5l-824.999 0 0 487.5c0 66.284 46.216 112.5 112.5 112.5l600 0c66.284 0 112.5-46.216 112.5-112.5l0-487.5zM362 437l337.5 187.5-337.5 187.5 0-374.999z"
+                p-id="2356"
+                fill="#fff"
+              />
+            </svg>
+          </div>
+        </li>
+      </ul>
+    </van-pull-refresh>
     <div class="goback" v-show="isShow" @click="goback">
       <span class="icon">
         <van-icon size="20" color="#fff" name="arrow-left" />
@@ -59,6 +61,7 @@ export default {
   data() {
     return {
       isShow: false,
+      isLoading: true,
       mv: [
         {
           lastRank: 1,
@@ -350,7 +353,8 @@ export default {
   methods: {
     // 获取MV推荐
     getDatas() {
-      return;
+      // return;
+      if (this.mv.length != 0) return;
       // 加载提示
       this.$toast.loading({
         duration: 0, // 持续展示 toast
@@ -367,6 +371,7 @@ export default {
       })
         .then((result) => {
           this.$toast.clear();
+          this.isLoading = false;
           this.$toast(result.data.msg);
           console.log(result);
           if (result.data.code == 200) {
@@ -375,7 +380,13 @@ export default {
         })
         .catch((err) => {
           this.$toast.clear();
+          this.isLoading = false;
         });
+    },
+    onRefresh() {
+      this.mv = [];
+      // 获取推荐MV
+      this.getDatas();
     },
     goback() {
       this.isShow = false;

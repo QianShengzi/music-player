@@ -1,10 +1,13 @@
 import { createNamespacedHelpers } from "vuex";
+import sorter from '../../components/sorter.vue'
 const { mapState, mapMutations } = createNamespacedHelpers("menuModule");
 export default {
     data() {
         return {
             isLoading: true,
             listActive: 0,
+            // 分页器显示上次页数位置
+            nowadaypage: 1,
             // 当前页码
             currentPage: 1,
             // 搜索结果显示的页码
@@ -135,12 +138,128 @@ export default {
                     datas: [],
                 },
             ],
+            // banner信息
+            bannerData: [
+                {
+                    "backgroundUrl": "",
+                    "picUrl": "http://p1.music.126.net/IL5nDPL3lFZYrpEzJGy8Yg==/109951165188073859.jpg",
+                    "monitorType": "",
+                    "backgroundColor": "",
+                    "targetId": "0",
+                    "monitorImpress": "",
+                    "targetType": "3000",
+                    "monitorClick": "",
+                    "url": "https://music.163.com/store/newalbum/detail?id=93058583"
+                },
+                {
+                    "backgroundUrl": "",
+                    "picUrl": "http://p1.music.126.net/_UuNFeOp_ObLplZwPhNSjg==/109951165189466730.jpg",
+                    "monitorType": "",
+                    "backgroundColor": "",
+                    "targetId": "83878976",
+                    "monitorImpress": "",
+                    "targetType": "10",
+                    "monitorClick": "",
+                    "url": "/album?id=83878976"
+                },
+                {
+                    "backgroundUrl": "",
+                    "picUrl": "http://p1.music.126.net/XUw5Xze_M-01plsdz0Crfg==/109951165189478598.jpg",
+                    "monitorType": "",
+                    "backgroundColor": "",
+                    "targetId": "1459678124",
+                    "monitorImpress": "",
+                    "targetType": "1",
+                    "monitorClick": "",
+                    "url": "/song?id=1459678124"
+                },
+                {
+                    "backgroundUrl": "",
+                    "picUrl": "http://p1.music.126.net/0kJc3AuFlVtqJ3RO-BPFuQ==/109951165189486136.jpg",
+                    "monitorType": "",
+                    "backgroundColor": "",
+                    "targetId": "93048548",
+                    "monitorImpress": "",
+                    "targetType": "10",
+                    "monitorClick": "",
+                    "url": "/album?id=93048548"
+                },
+                {
+                    "backgroundUrl": "",
+                    "picUrl": "http://p1.music.126.net/-nd30-xUWc55i30YqzxPqA==/109951165189484409.jpg",
+                    "monitorType": "",
+                    "backgroundColor": "",
+                    "targetId": "1467073899",
+                    "monitorImpress": "",
+                    "targetType": "1",
+                    "monitorClick": "",
+                    "url": "/song?id=1467073899"
+                },
+                {
+                    "backgroundUrl": "",
+                    "picUrl": "http://p1.music.126.net/H1_7bPtqDxtTRok6QE4IZg==/109951165189329386.jpg",
+                    "monitorType": "",
+                    "backgroundColor": "",
+                    "targetId": "1466910225",
+                    "monitorImpress": "",
+                    "targetType": "1",
+                    "monitorClick": "",
+                    "url": "/song?id=1466910225"
+                },
+                {
+                    "backgroundUrl": "",
+                    "picUrl": "http://p1.music.126.net/9jlowKNx7fQWiOzr-du8RA==/109951165189495853.jpg",
+                    "monitorType": "",
+                    "backgroundColor": "",
+                    "targetId": "1465957765",
+                    "monitorImpress": "",
+                    "targetType": "1",
+                    "monitorClick": "",
+                    "url": "/song?id=1465957765"
+                },
+                {
+                    "backgroundUrl": "",
+                    "picUrl": "http://p1.music.126.net/XT46OlQ28vj5Ge1Tmex15g==/109951165189514491.jpg",
+                    "monitorType": "",
+                    "backgroundColor": "",
+                    "targetId": "1466643383",
+                    "monitorImpress": "",
+                    "targetType": "1",
+                    "monitorClick": "",
+                    "url": "/song?id=1466643383"
+                },
+                {
+                    "backgroundUrl": "",
+                    "picUrl": "http://p1.music.126.net/qbXe49Jtf6XWvciJ7hrOyg==/109951165189385629.jpg",
+                    "monitorType": "",
+                    "backgroundColor": "",
+                    "targetId": "93212721",
+                    "monitorImpress": "",
+                    "targetType": "10",
+                    "monitorClick": "",
+                    "url": "/album?id=93212721"
+                },
+                {
+                    "backgroundUrl": "",
+                    "picUrl": "http://p1.music.126.net/oUt8LNX-CWOCGmeaMOz_qQ==/109951165189513139.jpg",
+                    "monitorType": "",
+                    "backgroundColor": "",
+                    "targetId": "1466303986",
+                    "monitorImpress": "",
+                    "targetType": "1",
+                    "monitorClick": "",
+                    "url": "/song?id=1466303986"
+                }
+            ],
             // 缓存的当前榜单音乐列表
             saveList: [],
             searchValue: '',
             // // 搜索歌曲的显示隐藏
             // showSearchList: false
         };
+    },
+    components: {
+        sorter
     },
     created() {
         // 缓存中有数据
@@ -162,6 +281,14 @@ export default {
         // 恢复歌曲榜单状态 分页状态
         this.listActive = this._listActive;
         this.currentPage = this._currentPage;
+        // 状态为搜索歌曲时 执行代码
+        if (this._searchSongs.length) {
+            //  分页器显示搜索歌曲分页的页数位置
+            this.nowadaypage = this._searchCurrentPage;
+        } else {
+            // 分页器显示推荐列表上次页数位置
+            this.nowadaypage = this._currentPage;
+        }
 
         // 读取搜索关键词
         this.searchValue = this._searchValue;
@@ -216,6 +343,7 @@ export default {
 
         // 歌曲榜单切换事件
         changeTabs() {
+            this.isLoading = false;
             console.log(this.listActive);
             this.__changeListAcitve(this.listActive);
             // 当前页码重新变为1
@@ -252,6 +380,17 @@ export default {
             this._changeSearchSongs([]);
             // 搜索分页 恢复为1
             this._changeSearchCurrentPage(1);
+            // 更正当前搜索音乐为第一页
+            this.searchCurrentPage = this._searchCurrentPage;
+            // 恢复歌曲榜单状态 分页状态
+            this.listActive = this._listActive;
+            console.log(this._listActive);
+            this.currentPage = this._currentPage;
+            this.nowadaypage = this.currentPage;
+            console.log(this.nowadaypage);
+            // 分页器显示上次页数位置
+            this.nowadaypage = this._currentPage;
+
         },
         // 保存搜索输入的值
         saveSearchValue() {
@@ -260,15 +399,19 @@ export default {
         // 分页器点击
         changePage(item) {
             console.log(item);
-            this._changeCurrentPage(item);
+            this.currentPage = item;
             // 状态为搜索歌曲时 执行代码
             if (this._searchSongs.length) {
                 console.log('搜索');
                 // 保存当前点击第几页
                 this._changeSearchCurrentPage(item);
                 // 根据页数请求搜索歌曲
-                this.searchSongs(this.searchValue, item)
+                this.searchSongs(this.searchValue, item);
+                // 阻止currentpage变化
+                return;
             }
+            // 更改currentpage
+            this._changeCurrentPage(item);
         },
         // 评论页
         comment(songId, index) {
@@ -295,6 +438,7 @@ export default {
                         // 保存获取到的热评
                         let res = result.data.data.hotComments;
                         this._changeHotComments(res);
+                        console.log(this._hotComments);
                     }
                     this.$toast.clear();
                 })
@@ -325,10 +469,20 @@ export default {
         },
         // 下拉刷新事件
         onRefresh() {
-            setTimeout(() => {
-                console.log("刷新成功");
-                this.isLoading = false;
-            }, 2000);
+            // 清空对应榜单列表歌曲
+            this.list.forEach((v) => {
+                // console.log(v);
+                if (v.num == this._listActive) {
+                    console.log(v);
+                    v.datas = [];
+                }
+            });
+            // 调用榜单切换事件 获取对应榜单随机歌曲
+            this.changeTabs();
+            // setTimeout(() => {
+            //     console.log("刷新成功");
+            //     // this.isLoading = false;
+            // }, 2000);
         },
         // 读取对应榜单歌曲 添加到播放器中
         changeListSongs() {
@@ -519,11 +673,12 @@ export default {
                 },
             })
                 .then((result) => {
+                    this.isLoading = false;
                     this.$toast.clear();
                     console.log(result);
                     this._saveSongsByToggle({ sort: sort, data: result });
                 })
-                .catch((err) => { this.$toast.clear(); });
+                .catch((err) => { this.$toast.clear(); this.isLoading = false; });
         },
         // // 歌曲搜索
         // searchSongs(searchValue, offset) {

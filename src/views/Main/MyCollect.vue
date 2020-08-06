@@ -6,6 +6,7 @@
         <li
           class="songs clearfix"
           v-for="(item,index) in collectList"
+          v-show="index<=currentPage*perPage-1&&index>(currentPage-1)*perPage-1"
           :key="index"
           @click="playSongs(index)"
         >
@@ -43,6 +44,12 @@
           </div>
         </li>
       </ul>
+      <sorter
+        :changeCurrentPage="changeCurrentPage"
+        :totalItems="totalItems"
+        :perPage="perPage"
+        @change-page="changePage($event)"
+      ></sorter>
     </div>
   </div>
 </template>

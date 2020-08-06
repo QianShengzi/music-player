@@ -1,6 +1,13 @@
+@height: 145/375*375px;
+
 .music-hall {
     margin-top: 94px;
     margin-bottom: 60px;
+
+    .van-swipe {
+        height: @height;
+        overflow: hidden;
+    }
 
     .van-search {
         position: fixed;
@@ -14,9 +21,9 @@
         margin-bottom: 100px;
     }
 
-    .van-tab__pane {
-        padding-top: 50px;
-    }
+    // .van-tab__pane {
+    //     // padding-top: 50px;
+    // }
 
     .van-search__content--round {
         background-color: #eee;
@@ -32,10 +39,10 @@
     }
 
     /deep/ .van-tabs__wrap {
-        position: fixed;
+        // position: fixed;
         width: 100%;
         margin: 0;
-        z-index: 111;
+        // z-index: 111;
     }
 
     /deep/ .van-tabs__line {

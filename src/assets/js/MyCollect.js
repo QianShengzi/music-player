@@ -1,21 +1,39 @@
 import { createNamespacedHelpers } from "vuex";
+import sorter from '../../components/sorter.vue'
 const { mapState, mapMutations } = createNamespacedHelpers("menuModule");
 export default {
     computed: {
         ...mapState(["myList", "_aplayer"]),
     },
+    components: {
+        sorter
+    },
     data() {
         return {
             // 收藏数据数组
             collectList: [],
+            changeCurrentPage: 1,
+            // 总共多少条记录 总记录数
+            totalItems: 0,
+            // 每页显示
+            perPage: 10,
+            // 当前页码
+            currentPage: 1
         };
     },
     created() {
         // 获取缓存歌曲
         this.getMyCollect();
     },
+
     methods: {
         ...mapMutations(["_changeMyList"]),
+        // 分页器点击
+        changePage(item) {
+            console.log(item);
+            this.currentPage = item;
+            // this._changeCurrentPage(item);
+        },
         // 获取缓存歌曲
         getMyCollect() {
             let local = JSON.parse(localStorage.getItem("myCollectedSongs"));
@@ -29,6 +47,8 @@ export default {
                 }
             });
             this.collectList = myList;
+            // 总共多少条记录 总记录数
+            this.totalItems = myList.length
         },
         // 取消收藏
         cancelCollect(id) {

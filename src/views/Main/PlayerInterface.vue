@@ -37,7 +37,12 @@
         </div>
       </div>
     </van-popup>
-    <img class="bg-img" src="../../assets/images/bg.jpg" @click="hiddenVolumeBar" />
+    <div class="bg-img">
+      <canvas id="canvas" width="300" height="300"></canvas>
+      <div class="bg-mask"></div>
+      <div class="bg-mask bg-mask-by-pic" ref="picMask"></div>
+      <img class="auto-img" style="height:100%" :src="nowIsPlay.cover" @click="hiddenVolumeBar" />
+    </div>
     <!-- 歌名 歌手 -->
     <div class="song-art">
       <div class="goback">
